@@ -111,7 +111,7 @@ def main(args):
       port=8001,
       https=True,
       username='admin',
-      password="Cl13nteleCl13ntele!"
+      password="password"
     )
 
     # to get to work without cert
