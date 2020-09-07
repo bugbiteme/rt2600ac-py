@@ -2,6 +2,9 @@
 
 Python sandbox for Synology RT2600ac router
 
+Utilizes the synology-srm python wrapper
+- https://pypi.org/project/synology-srm/
+
 As of now:
   
 - List all the available API endpoints
