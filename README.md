@@ -11,14 +11,14 @@ As of now:
 
 Using the -v and -vv flags will show you the actual URL being called
 
-usage: main.py [-h] [--version] [-v] [-vv]
+    usage: main.py [-h] [--version] [-v] [-vv]
 
-Just a demonstration of the Synology Router API wrapper
+    Just a demonstration of the Synology Router API wrapper
 
-optional arguments:
-  -h, --help           show this help message and exit
-  --version            show program's version number and exit
-  -v, --verbose        set loglevel to INFO
-  -vv, --very-verbose  set loglevel to DEBUG
-  
+    optional arguments:
+      -h, --help           show this help message and exit
+      --version            show program's version number and exit
+      -v, --verbose        set loglevel to INFO
+      -vv, --very-verbose  set loglevel to DEBUG
+
 Note: update username and password with your own!
