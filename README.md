@@ -9,4 +9,16 @@ As of now:
 - Get all the hosts, but filter for one specfic known host
 - Test mannually passing in an api endpoint request
 
+Using the -v and -vv flags will show you the actual URL being called
+
+usage: main.py [-h] [--version] [-v] [-vv]
+
+Just a demonstration of the Synology Router API wrapper
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --version            show program's version number and exit
+  -v, --verbose        set loglevel to INFO
+  -vv, --very-verbose  set loglevel to DEBUG
+  
 Note: update username and password with your own!

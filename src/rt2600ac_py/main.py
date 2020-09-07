@@ -31,23 +31,7 @@ __license__ = "mit"
 _logger = logging.getLogger(__name__)
 
 
-def fib(n):
-    """Fibonacci example function
-
-    Args:
-      n (int): integer
-
-    Returns:
-      int: n-th Fibonacci number
-    """
-    assert n > 0
-    a, b = 1, 1
-    for i in range(n-1):
-        a, b = b, a+b
-    return a
-
-
-def parse_args(args):
+def parse_args(args=""):
     """Parse command line parameters
 
     Args:
@@ -57,16 +41,16 @@ def parse_args(args):
       :obj:`argparse.Namespace`: command line parameters namespace
     """
     parser = argparse.ArgumentParser(
-        description="Just a Fibonacci demonstration")
+        description="Just a demonstration of the Synology Router API wrapper")
     parser.add_argument(
         "--version",
         action="version",
         version="rt2600ac-py {ver}".format(ver=__version__))
-    parser.add_argument(
-        dest="n",
-        help="n-th Fibonacci number",
-        type=int,
-        metavar="INT")
+    #parser.add_argument(
+    #    dest="n",
+    #    help="n-th Fibonacci number",
+    #    type=int,
+    #    metavar="INT")
     parser.add_argument(
         "-v",
         "--verbose",
@@ -101,8 +85,8 @@ def main(args):
     Args:
       args ([str]): command line parameter list
     """
-    #args = parse_args(args)
-    #setup_logging(args.loglevel)
+    args = parse_args(args)
+    setup_logging(args.loglevel)
     _logger.debug("Starting crazy calculations...")
 
     # client connection information
@@ -111,7 +95,7 @@ def main(args):
       port=8001,
       https=True,
       username='admin',
-      password="password"
+      password="<password>"
     )
 
     # to get to work without cert
