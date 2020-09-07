@@ -1,18 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-This is a skeleton file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-[options.entry_points] section in setup.cfg:
+Python sandbox for Synology RT2600ac router
 
-    console_scripts =
-         fibonacci = rt2600ac_py.skeleton:run
+Utilizes the synology-srm python wrapper
+- https://pypi.org/project/synology-srm/
 
-Then run `python setup.py install` which will install the command `fibonacci`
-inside your current environment.
-Besides console scripts, the header (i.e. until _logger...) of this file can
-also be used as template for Python modules.
+As of now:
+  
+- List all the available API endpoints
+- List certificate
+- Get all the hosts, but filter for one specfic known host
+- Test mannually passing in an api endpoint request
 
-Note: This skeleton file can be safely removed if not needed!
+Using the -v and -vv flags will show you the actual URL being called
+
+    usage: main.py [-h] [--version] [-v] [-vv]
+
+    Just a demonstration of the Synology Router API wrapper
+
+    optional arguments:
+      -h, --help           show this help message and exit
+      --version            show program's version number and exit
+      -v, --verbose        set loglevel to INFO
+      -vv, --very-verbose  set loglevel to DEBUG
+
+Note: update username and password with your own!
 """
 
 import argparse
@@ -78,6 +90,23 @@ def setup_logging(loglevel):
     logging.basicConfig(level=loglevel, stream=sys.stdout,
                         format=logformat, datefmt="%Y-%m-%d %H:%M:%S")
 
+def api_call(client, api_in, method_in):
+  
+  endpoint_in = ''
+
+  if method_in == 'query':
+    endpoint_in = 'query.cgi'
+  else:
+    endpoint_in = 'entry.cgi'
+
+  response = client.http.call(
+    endpoint=endpoint_in ,
+    api=api_in,
+    method=method_in,
+    version=1,
+  )
+
+  return response
 
 def main(args):
     """Main entry point allowing external calls
@@ -151,10 +180,22 @@ def main(args):
     #https://192.168.1.1:8001/webapi/query.cgi?api=SYNO.API.Info&version=1&method=query&query=all
 
 
+    response = api_call(client, 'SYNO.Core.DDNS.ExtIP', 'list')
+    print(json.dumps(response, indent=4, sort_keys=True))
 
+    response = api_call(client, 'SYNO.Core.System.Utilization', 'get')
+    print(json.dumps(response, indent=4, sort_keys=True))
+    
+    # SYNO.Core.Network.Router.Topology
+    response = api_call(client, 'SYNO.Core.Network.Router.Topology', 'get')
+    print(json.dumps(response, indent=4, sort_keys=True))
+
+    # SYNO.Core.Network.Wifi.Client
+    response = api_call(client, 'SYNO.Core.Network.Wifi.Client', 'list')
+    print(json.dumps(response, indent=4, sort_keys=True))
 
     _logger.info("Script ends here")
-
+   
 
 def run():
     """Entry point for console_scripts
